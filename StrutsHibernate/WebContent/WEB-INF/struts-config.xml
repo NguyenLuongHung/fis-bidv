@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" 
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+	<form-beans>
+		<form-bean name="customerForm" 
+			type="com.bidd.customer.form.CustomerForm" />
+		
+		<form-bean name="dynaCustomerListForm"
+			type = "org.apache.struts.action.DynaActionForm" 
+			<form-property name="customerList" type="java.util.List"/>
+		</form-bean>
+			
+	</form-beans>
+	
+	<action-mappings>
+		<action path="/ActionCustomerPage"
+				type="org.apache.struts.actions.ForwardAction"
+				parameter="/pages/customer/add_customer.jsp"/>
+				
+		<action path="/ActionCustomer"
+				type="com.bidd.customer.action.AddCustomerAction"
+				name="customerForm"
+				validate="true"
+				input="views/add_customer.jsp">
+				
+				<forward name="success" redirect="true" path="ListCustomer.do"/>
+		</action>
+		
+		<action path="ListCustomer"
+				type="com.bidd.customer.action.ListCustomerAction"
+				name="dynaCustomerListForm"
+				>
+				<foward name="success" path="views/list_customer.jsp"/>		
+		</action>
+			
+	</action-mappings>
+</struts-config>
